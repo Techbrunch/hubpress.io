@@ -1,6 +1,6 @@
 = Writeup challenge Sogeti
 :hp-tags: security
-:published_at:2013-06-28
+:published_at: 2013-06-28
 
 
 Dans cet article je vais décrire les étapes nécessaire à la résultion d'un challenge réalisé à l'occasion d'un "security event" organisé par Sogeti le 25 juin 2013.
