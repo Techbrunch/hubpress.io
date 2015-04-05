@@ -1,6 +1,7 @@
 
 = CTF wargamevn writeups
 :hp-tags: security
+:published_at: 2013-08-18
 
 == Stegano 50
 
