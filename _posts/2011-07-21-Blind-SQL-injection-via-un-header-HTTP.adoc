@@ -1,5 +1,5 @@
 = Blind SQL injection via un header HTTP
-:published_at: 2015-01-31
+:published_at: 2011-07-21
 :hp-tags: security
 
 Cet article présente une façon originale d'exploiter une faille de type injection SQL. La faille se trouve dans un formulaire d'identification et plus précisément dans le code PHP qui ne contrôle pas tous les paramètres de la requête SQL.
