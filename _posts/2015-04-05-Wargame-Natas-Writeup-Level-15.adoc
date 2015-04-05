@@ -92,5 +92,5 @@ Pour plus d'info concernant les options de sqlmap reportez vous à la https://gi
 Et si vous voulez voir l'exécution du script en direct c'est par ici :
 
 ++++
-<script type="text/javascript" src="http://ascii.io/a/1623.js" id="asciicast-1623"> </script>
+<script type="text/javascript" src="https://asciinema.org/a/1623.js" id="asciicast-1623" async></script>
 ++++
