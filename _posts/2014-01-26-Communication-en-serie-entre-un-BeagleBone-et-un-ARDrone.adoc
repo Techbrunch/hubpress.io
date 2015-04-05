@@ -1,0 +1,94 @@
+= Communication en série entre un BeagleBone et un AR.Drone
+:published_at: 2014-01-26
+:hp-tags: tuto
+
+== Installation de Node.js sur l'ar-done 2.0
+
+. Téléchargement de https://github.com/felixge/node-cross-compiler/downloads[node]
+. Il faut mettre node sur une clé usb.
+. On branche la clé usb sur le drone
+. Telnet sur le drone, `telnet 192.168.1.1` (on peut utiliser Putty)
+. `cd /data/video`
+. `cp usb/node .` (il est possible que ce soit usb1 au lieu de usb)
+. `chmod +x node`
+
+
+Une fois que vous avez fait cela vous êtes désormais capable d'exécuter du code pour node.js et recevoir des informations via un port série directement sur le drone !
+
+Cela veut dire que si vous utilisez une librairie telle que https://github.com/felixge/node-ar-drone[node-ar-drone] vous allez pouvoir rendre totalement autonome votre drone avec un petit peu de javascript !
+
+[source, javascript]
+----
+var arDrone = require('ar-drone');
+var client  = arDrone.createClient();
+
+client.takeoff();
+
+client
+  .after(5000, function() {
+    this.clockwise(0.5);
+  })
+  .after(3000, function() {
+    this.stop();
+    this.land();
+  });
+----
+
+Avec quelques lignes de code il est désormais possible de faire voler notre drone en autonomie.
+
+== Communication en série entre le BeagleBone et l'AR.Drone
+
+Si l'on en croit cet article sur lequel est basé ce post, il n'est actuellement pas possible d'envoyer des données depuis le drone vers le beaglebone. Nous nous contenterons donc d'envoyer des infos du beaglebone vers le drone.
+
+
+Dans un premier temps on a tout d'abord tenté d'utiliser l'UART du beaglebone en suivant le tutoriel présent sur http://learn.adafruit.com/setting-up-io-python-library-on-beaglebone-black/overview[adafruit.com] cependant la connexion établie n'était pas très fiable. Si vous tentez d'utiliser les UART je vous conseille d'aller jeter un coup d'œil à cet http://www.armhf.com/index.php/beaglebone-black-serial-uart-device-tree-overlays-for-ubuntu-and-debian-wheezy-tty01-tty02-tty04-tty05-dtbo-files/[article] car lors de nos tests certains fichiers qui étaient manquant ont put être récupérés à partir de cet article.
+
+Nous avons finalement opté pour l'utilisation d'un adaptateur USB/Serial même si au final la transmission des données était toujours aléatoire. Une meilleur solution serait probablement d'utiliser un module spécifique tel que celui qui est vendu sur http://mirumod.tk/hw/mirullc/mirullc.php[mirumod.tk].
+
+Pour utiliser la communication série on a utilisé le paquet `pyserial` :
+
+    sudo ntpdate pool.ntp.org
+    sudo apt-get update
+    sudo apt-get install build-essential python-dev python-setuptools python-pip python-smbus -y
+    pip install pyserial
+
+Avec ce paquet, il  devient alors très facile d'envoyer des données en série :
+
+[source, python]
+----
+import serial
+ 
+ser = serial.Serial(port = "/dev/ttyUSB0", baudrate=9600)
+ser.close()
+ser.open()
+if ser.isOpen():
+  print "Serial is open!"
+    ser.write("Hello World!")
+ser.close()
+----
+
+== Réception des données en série sur le drone
+
+. Téléchargement de https://github.com/felixge/node-cross-compiler/downloads[node-serialport]
+. On décompresse l'archive sur la clé
+. `cd /data/video`
+. `mkdir node_modules`
+. `cp usb/node .` (il est possible que ce soit usb1 au lieu de usb)
+
+Une fois le module installé il est possible de récupérer les informations qui arrivent sur le port série :
+
+[source, javascript]
+----
+var serialport = require('node-serialport')
+ 
+var sp = new serialport.SerialPort("/dev/ttyO3", { 
+  parser: serialport.parsers.raw,
+  baud: 9600
+})
+ 
+sp.on('data', function(chunk) {
+  console.log(chunk.toString('hex'), chunk.toString(), chunk)
+})
+----
+
+On obtient au final un drone autonome capable d'obtenir des informations d'un mini ordinateur et d'agir en conséquence.
