@@ -1,0 +1,51 @@
+= Installation de Kali Linux sur le BeagleBone Black
+:published_at: 2014-01-26
+:hp-tags: security, tuto
+
+Dans le cadre d'un projet scolaire j'ai été amené à installer la distribution http://www.kali.org/[Kali Linux] sur un http://beagleboard.org/products/beaglebone%20black[BeagleBone Black] qui est un petit ordinateur similaire au Raspberry Pi. La distribution a été créée par les créateurs de BackTrack et est parfaite pour faire du pentest. Dans notre cas, c'était pour faire du crack de réseaux wifi ;)
+
+== Installation rapide
+
+- Vous aurez besoin d'une carte SD de 8GB (ou plus), de préférence de Classe 10.
+
+- Téléchargé l'image sur le site officiel dans la section http://www.offensive-security.com/kali-llnux-vmware-arm-image-download/[custom kali images]
+
+- Il ne reste plus qu'à utiliser l'utilitaire *dd* pour copier l'image sur la carte SD. Pour l'exemple on suppose que la carte est située dans `/dev/sdb`. Attention l'écriture de l'image va effacer la totalité du contenu de la carte SD. 
+
+WARNING: Si vous vous trompez d'espace de stockage il est possible que vous effaciez *la totalité de votre disque dur !*
+
+    root@kali:~ dd if=kali-bbb.img of=/dev/sdb bs=512k
+
+Si vous êtes sous Windows vous pouvez utiliser l'utilitaire http://sourceforge.net/projects/win32diskimager/[Win32 Disk Imager] pour copier l'image sur la carte SD, un tutoriel plus complet est disponible sur le http://beagleboard.org/Getting%20Started#update[site officiel du BBB].
+
+La copie peut durer un certain temps en fonction de la vitesse d'écriture de la carte SD et de la taille de l'image.
+
+Si vous souhaitez customiser l'image il existe un http://docs.kali.org/development/custom-beaglebone-black-image[tutoriel en anglais] qui explique comment faire pas à pas.
+
+Une fois l'image copiée il suffit de l'insérer et le BeagleBone devrait automatiqement booter dessus.
+
+== Accès au BeagleBone
+
+Le souci avec cette image c'est que SSH n'est pas activé par défaut et que donc si vous ne possédez pas un écran et un clavier vous allez avoir du mal à vous connecter...
+
+Il est possible de modifier directement les fichiers sur la carte SD comme le prouve ce http://grinninggecko.com/kali-linux-on-headless-beaglebone-black-via-os-x/[tutoriel sous Mac OSX] mais j'ai opté pour l'utilisation d'un câble (un adaptateur http://dave.cheney.net/2013/09/22/two-point-five-ways-to-access-the-serial-console-on-your-beaglebone-black[USB/Serial PL2303]) afin de me connecter directement en série. Pour se connecter en série il faut utiliser les pins 1, 4 et 5 le branchement dépendra du http://elinux.org/Beagleboard:BeagleBone_Black_Accessories#Serial_Debug_Cables[câble que vous utilisez].
+
+== Bonus : Utilisation de Wifite pour du crack WPA
+
+Afin de cracker les réseaux wifi nous avons utilisé un script python pré-installé avec Kali qui permet d'automatiser tout cela, le problème c'est qu'il ne capturait jamais le handshake...
+
+En fait il s'avère que le script n'est plus maintenu et qu'il reste https://code.google.com/p/wifite/[un certain nombre de tickets] qui n'ont jamais été résolus. Heureusement quelqu'un a rencontré le même problème que nous, et en fait cela vient du fait que les logs de tshark ne sont plus écris de la même manière et que tshark est utilisé pour trouver le handshake.
+
+La solution c'est de changer la méthode utilisée pour trouver le handshake dans le fichier de config ou bien d'appliquer le https://code.google.com/p/wifite/issues/detail?id=121[patch proposé] dans les commentaires.
+
+Si vous souhaitez modifier le fichier de config ce sont ces lignes qu'il faut modifier :
+
+    # Various programs to use when checking for a four-way handshake.
+    # True means the program must find a valid handshake in order for wifite to recognize a handshake.
+    # Not finding handshake short circuits result (ALL 'True' programs must find handshake)
+    WPA_HANDSHAKE_TSHARK   = True  # Checks for sequential 1,2,3 EAPOL msg packets (ignores 4th)
+    WPA_HANDSHAKE_PYRIT    = False # Sometimes crashes on incomplete dumps, but accurate.
+    WPA_HANDSHAKE_AIRCRACK = True  # Not 100% accurate, but fast.
+    WPA_HANDSHAKE_COWPATTY = False # Uses more lenient "nonstrict mode" (-2)
+
+Une fois la modification effectuée vous ne devriez pas avoir de problèmes pour capturer le handshake et pour peu que la clé recherchée soit dans votre dictionnaire c'est dans la poche :D
