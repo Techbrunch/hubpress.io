@@ -1,0 +1,22 @@
+
+= Astuce : Recuperer les images des videos Youtube
+:published_at: 2011-07-27
+:hp-tags: tuto
+
+Aujourd’hui je vais partager avec vous une petite astuce, comment récupérer une image “descriptive” d’une vidéo tirée de Youtube afin d’illustrer un article par exemple.
+
+Alors c’est très simple il suffit de se rendre à l’adresse suivante:
+
+ http://img.youtube.com/vi/[Code de la vidéo]/[Numéro de l’image].jpg
+
+Exemple avec cette vidéo :
+
+ http://www.youtube.com/watch?v=kMyPD1VKk60
+ 
+Le code de la vidéo est *kMyPD1VKk60* pour récupérer les images il faut alors se rendre alors sur ce lien `http://img.youtube.com/vi/kMyPD1VKk60/*0*.jpg` et faire varier le numéro de l’image.
+
+Apparemment seulement 4 images sont générées ( de 0 à 3 ) mais il est possible qu’il y en ai plus si la vidéo est plus longue.
+
+Pour avoir l'image de la meilleur qualité possible il faut utiliser l'image *maxresdefault.jpg*.
+
+NOTE: Article mis à jour le 05-04-2015
