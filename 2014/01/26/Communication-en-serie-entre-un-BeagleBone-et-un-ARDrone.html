@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Communication en série entre un BeagleBone et un AR.Drone</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="//Techbrunch.github.io/hubpress.io/themes/Casper/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/css/screen.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+
+    <link rel="canonical" href="https://Techbrunch.github.io/hubpress.io/2014/01/26/Communication-en-serie-entre-un-BeagleBone-et-un-ARDrone.html" />
+    
+    <meta property="og:site_name" content="" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Communication en série entre un BeagleBone et un AR.Drone" />
+    <meta property="og:description" content="Installation de Node.js sur l&amp;#8217;ar-done 2.0 Téléchargement de node Il faut mettre node sur une clé usb. On branche la clé usb sur le drone Telnet sur le drone, telnet 192.168.1.1 (on peut..." />
+    <meta property="og:url" content="https://Techbrunch.github.io/hubpress.io/2014/01/26/Communication-en-serie-entre-un-BeagleBone-et-un-ARDrone.html" />
+    <meta property="article:published_time" content="2014-01-25T23:00:00.000Z" />
+    <meta property="article:modified_time" content="2015-04-05T12:38:39.481Z" />
+    <meta property="article:tag" content="tuto" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Communication en série entre un BeagleBone et un AR.Drone" />
+    <meta name="twitter:description" content="Installation de Node.js sur l&amp;#8217;ar-done 2.0 Téléchargement de node Il faut mettre node sur une clé usb. On branche la clé usb sur le drone Telnet sur le drone, telnet 192.168.1.1 (on peut..." />
+    <meta name="twitter:url" content="https://Techbrunch.github.io/hubpress.io/2014/01/26/Communication-en-serie-entre-un-BeagleBone-et-un-ARDrone.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "",
+    "author": {
+        "@type": "Person",
+        "name": null,
+        "image": "https://avatars.githubusercontent.com/u/1835765?v=3",
+        "url": "undefined/author/undefined",
+        "sameAs": "http://techbrunch.github.io/"
+    },
+    "headline": "Communication en série entre un BeagleBone et un AR.Drone",
+    "url": "https://Techbrunch.github.io/hubpress.io/2014/01/26/Communication-en-serie-entre-un-BeagleBone-et-un-ARDrone.html",
+    "datePublished": "2014-01-25T23:00:00.000Z",
+    "dateModified": "2015-04-05T12:38:39.481Z",
+    "keywords": "tuto",
+    "description": "Installation de Node.js sur l&amp;#8217;ar-done 2.0 Téléchargement de node Il faut mettre node sur une clé usb. On branche la clé usb sur le drone Telnet sur le drone, telnet 192.168.1.1 (on peut..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost ?" />
+    <link rel="alternate" type="application/rss+xml" title="" href="https://Techbrunch.github.io/hubpress.io/rss" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+</head>
+<body class="post-template tag-tuto">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="https://Techbrunch.github.io/hubpress.io">Home</a>
+        <!-- <a class="subscribe-button icon-feed" href="https://Techbrunch.github.io/hubpress.io/rss/">Subscribe</a> -->
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-tuto">
+
+        <header class="post-header">
+            <h1 class="post-title">Communication en série entre un BeagleBone et un AR.Drone</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-01-26">26 January 2014</time>  on <a href="https://Techbrunch.github.io/hubpress.io/tag/tuto">tuto</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="sect1">
+<h2 id="_installation_de_node_js_sur_l_ar_done_2_0">Installation de Node.js sur l&#8217;ar-done 2.0</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Téléchargement de <a href="https://github.com/felixge/node-cross-compiler/downloads">node</a></p>
+</li>
+<li>
+<p>Il faut mettre node sur une clé usb.</p>
+</li>
+<li>
+<p>On branche la clé usb sur le drone</p>
+</li>
+<li>
+<p>Telnet sur le drone, <code>telnet 192.168.1.1</code> (on peut utiliser Putty)</p>
+</li>
+<li>
+<p><code>cd /data/video</code></p>
+</li>
+<li>
+<p><code>cp usb/node .</code> (il est possible que ce soit usb1 au lieu de usb)</p>
+</li>
+<li>
+<p><code>chmod +x node</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Une fois que vous avez fait cela vous êtes désormais capable d&#8217;exécuter du code pour node.js et recevoir des informations via un port série directement sur le drone !</p>
+</div>
+<div class="paragraph">
+<p>Cela veut dire que si vous utilisez une librairie telle que <a href="https://github.com/felixge/node-ar-drone">node-ar-drone</a> vous allez pouvoir rendre totalement autonome votre drone avec un petit peu de javascript !</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">var arDrone = require('ar-drone');
+var client  = arDrone.createClient();
+
+client.takeoff();
+
+client
+  .after(5000, function() {
+    this.clockwise(0.5);
+  })
+  .after(3000, function() {
+    this.stop();
+    this.land();
+  });</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Avec quelques lignes de code il est désormais possible de faire voler notre drone en autonomie.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_communication_en_s_rie_entre_le_beaglebone_et_l_ar_drone">Communication en série entre le BeagleBone et l&#8217;AR.Drone</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Si l&#8217;on en croit cet article sur lequel est basé ce post, il n&#8217;est actuellement pas possible d&#8217;envoyer des données depuis le drone vers le beaglebone. Nous nous contenterons donc d&#8217;envoyer des infos du beaglebone vers le drone.</p>
+</div>
+<div class="paragraph">
+<p>Dans un premier temps on a tout d&#8217;abord tenté d&#8217;utiliser l&#8217;UART du beaglebone en suivant le tutoriel présent sur <a href="http://learn.adafruit.com/setting-up-io-python-library-on-beaglebone-black/overview">adafruit.com</a> cependant la connexion établie n'était pas très fiable. Si vous tentez d&#8217;utiliser les UART je vous conseille d&#8217;aller jeter un coup d'œil à cet <a href="http://www.armhf.com/index.php/beaglebone-black-serial-uart-device-tree-overlays-for-ubuntu-and-debian-wheezy-tty01-tty02-tty04-tty05-dtbo-files/">article</a> car lors de nos tests certains fichiers qui étaient manquant ont put être récupérés à partir de cet article.</p>
+</div>
+<div class="paragraph">
+<p>Nous avons finalement opté pour l&#8217;utilisation d&#8217;un adaptateur USB/Serial même si au final la transmission des données était toujours aléatoire. Une meilleur solution serait probablement d&#8217;utiliser un module spécifique tel que celui qui est vendu sur <a href="http://mirumod.tk/hw/mirullc/mirullc.php">mirumod.tk</a>.</p>
+</div>
+<div class="paragraph">
+<p>Pour utiliser la communication série on a utilisé le paquet <code>pyserial</code> :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo ntpdate pool.ntp.org
+sudo apt-get update
+sudo apt-get install build-essential python-dev python-setuptools python-pip python-smbus -y
+pip install pyserial</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Avec ce paquet, il  devient alors très facile d&#8217;envoyer des données en série :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">import serial
+
+ser = serial.Serial(port = "/dev/ttyUSB0", baudrate=9600)
+ser.close()
+ser.open()
+if ser.isOpen():
+  print "Serial is open!"
+    ser.write("Hello World!")
+ser.close()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_r_ception_des_donn_es_en_s_rie_sur_le_drone">Réception des données en série sur le drone</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Téléchargement de <a href="https://github.com/felixge/node-cross-compiler/downloads">node-serialport</a></p>
+</li>
+<li>
+<p>On décompresse l&#8217;archive sur la clé</p>
+</li>
+<li>
+<p><code>cd /data/video</code></p>
+</li>
+<li>
+<p><code>mkdir node_modules</code></p>
+</li>
+<li>
+<p><code>cp usb/node .</code> (il est possible que ce soit usb1 au lieu de usb)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Une fois le module installé il est possible de récupérer les informations qui arrivent sur le port série :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">var serialport = require('node-serialport')
+
+var sp = new serialport.SerialPort("/dev/ttyO3", {
+  parser: serialport.parsers.raw,
+  baud: 9600
+})
+
+sp.on('data', function(chunk) {
+  console.log(chunk.toString('hex'), chunk.toString(), chunk)
+})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On obtient au final un drone autonome capable d&#8217;obtenir des informations d&#8217;un mini ordinateur et d&#8217;agir en conséquence.</p>
+</div>
+</div>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="" style="background-image: url(https://avatars.githubusercontent.com/u/1835765?v=3)"><span class="hidden">'s Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href=""></a></h4>
+
+                    <p>Read <a href="">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    <span class="author-link icon-link"><a href="http://techbrunch.github.io/">http://techbrunch.github.io/</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=Communication%20en%20s%C3%A9rie%20entre%20un%20BeagleBone%20et%20un%20AR.Drone&amp;url=https://Techbrunch.github.io/hubpress.io/2014/01/26/Communication-en-serie-entre-un-BeagleBone-et-un-ARDrone.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://Techbrunch.github.io/hubpress.io/2014/01/26/Communication-en-serie-entre-un-BeagleBone-et-un-ARDrone.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://Techbrunch.github.io/hubpress.io/2014/01/26/Communication-en-serie-entre-un-BeagleBone-et-un-ARDrone.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="https://Techbrunch.github.io/hubpress.io"></a> &copy; 2015</section>
+        <section class="poweredby">Proudly published with <a href="http://hubpress.io">HubPress</a></section>
+    </footer>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();      
+      </script>
+
+    <script type="text/javascript" src="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/js/jquery.fitvids.js?v=1.0.0"></script>
+    <script type="text/javascript" src="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/js/index.js?v=1.0.0"></script>
+
+</body>
+</html>
