@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Installation de Kali Linux sur le BeagleBone Black</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="//Techbrunch.github.io/hubpress.io/themes/Casper/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/css/screen.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+
+    <link rel="canonical" href="https://Techbrunch.github.io/hubpress.io/2014/01/26/Installation-de-Kali-Linux-sur-le-BeagleBone-Black.html" />
+    
+    <meta property="og:site_name" content="" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Installation de Kali Linux sur le BeagleBone Black" />
+    <meta property="og:description" content="Dans le cadre d&amp;#8217;un projet scolaire j&amp;#8217;ai été amené à installer la distribution Kali Linux sur un BeagleBone Black qui est un petit ordinateur similaire au Raspberry Pi. La distribution a été créée par les créateurs..." />
+    <meta property="og:url" content="https://Techbrunch.github.io/hubpress.io/2014/01/26/Installation-de-Kali-Linux-sur-le-BeagleBone-Black.html" />
+    <meta property="article:published_time" content="2014-01-25T23:00:00.000Z" />
+    <meta property="article:modified_time" content="2015-04-05T12:46:40.844Z" />
+    <meta property="article:tag" content="security" />
+    <meta property="article:tag" content="tuto" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Installation de Kali Linux sur le BeagleBone Black" />
+    <meta name="twitter:description" content="Dans le cadre d&amp;#8217;un projet scolaire j&amp;#8217;ai été amené à installer la distribution Kali Linux sur un BeagleBone Black qui est un petit ordinateur similaire au Raspberry Pi. La distribution a été créée par les créateurs..." />
+    <meta name="twitter:url" content="https://Techbrunch.github.io/hubpress.io/2014/01/26/Installation-de-Kali-Linux-sur-le-BeagleBone-Black.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "",
+    "author": {
+        "@type": "Person",
+        "name": null,
+        "image": "https://avatars.githubusercontent.com/u/1835765?v=3",
+        "url": "undefined/author/undefined",
+        "sameAs": "http://techbrunch.github.io/"
+    },
+    "headline": "Installation de Kali Linux sur le BeagleBone Black",
+    "url": "https://Techbrunch.github.io/hubpress.io/2014/01/26/Installation-de-Kali-Linux-sur-le-BeagleBone-Black.html",
+    "datePublished": "2014-01-25T23:00:00.000Z",
+    "dateModified": "2015-04-05T12:46:40.844Z",
+    "keywords": "security,  tuto",
+    "description": "Dans le cadre d&amp;#8217;un projet scolaire j&amp;#8217;ai été amené à installer la distribution Kali Linux sur un BeagleBone Black qui est un petit ordinateur similaire au Raspberry Pi. La distribution a été créée par les créateurs..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost ?" />
+    <link rel="alternate" type="application/rss+xml" title="" href="https://Techbrunch.github.io/hubpress.io/rss" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+</head>
+<body class="post-template tag-security tag-tuto">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="https://Techbrunch.github.io/hubpress.io">Home</a>
+        <!-- <a class="subscribe-button icon-feed" href="https://Techbrunch.github.io/hubpress.io/rss/">Subscribe</a> -->
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-security tag-tuto">
+
+        <header class="post-header">
+            <h1 class="post-title">Installation de Kali Linux sur le BeagleBone Black</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-01-26">26 January 2014</time>  on <a href="https://Techbrunch.github.io/hubpress.io/tag/security">security</a>, <a href="https://Techbrunch.github.io/hubpress.io/tag/tuto"> tuto</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dans le cadre d&#8217;un projet scolaire j&#8217;ai été amené à installer la distribution <a href="http://www.kali.org/">Kali Linux</a> sur un <a href="http://beagleboard.org/products/beaglebone%20black">BeagleBone Black</a> qui est un petit ordinateur similaire au Raspberry Pi. La distribution a été créée par les créateurs de BackTrack et est parfaite pour faire du pentest. Dans notre cas, c'était pour faire du crack de réseaux wifi ;)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installation_rapide">Installation rapide</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Vous aurez besoin d&#8217;une carte SD de 8GB (ou plus), de préférence de Classe 10.</p>
+</li>
+<li>
+<p>Téléchargé l&#8217;image sur le site officiel dans la section <a href="http://www.offensive-security.com/kali-llnux-vmware-arm-image-download/">custom kali images</a></p>
+</li>
+<li>
+<p>Il ne reste plus qu'à utiliser l&#8217;utilitaire <strong>dd</strong> pour copier l&#8217;image sur la carte SD. Pour l&#8217;exemple on suppose que la carte est située dans <code>/dev/sdb</code>. Attention l'écriture de l&#8217;image va effacer la totalité du contenu de la carte SD.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Si vous vous trompez d&#8217;espace de stockage il est possible que vous effaciez <strong>la totalité de votre disque dur !</strong>
+</td>
+</tr>
+</table>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>root@kali:~ dd if=kali-bbb.img of=/dev/sdb bs=512k</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si vous êtes sous Windows vous pouvez utiliser l&#8217;utilitaire <a href="http://sourceforge.net/projects/win32diskimager/">Win32 Disk Imager</a> pour copier l&#8217;image sur la carte SD, un tutoriel plus complet est disponible sur le <a href="http://beagleboard.org/Getting%20Started#update">site officiel du BBB</a>.</p>
+</div>
+<div class="paragraph">
+<p>La copie peut durer un certain temps en fonction de la vitesse d'écriture de la carte SD et de la taille de l&#8217;image.</p>
+</div>
+<div class="paragraph">
+<p>Si vous souhaitez customiser l&#8217;image il existe un <a href="http://docs.kali.org/development/custom-beaglebone-black-image">tutoriel en anglais</a> qui explique comment faire pas à pas.</p>
+</div>
+<div class="paragraph">
+<p>Une fois l&#8217;image copiée il suffit de l&#8217;insérer et le BeagleBone devrait automatiqement booter dessus.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_acc_s_au_beaglebone">Accès au BeagleBone</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le souci avec cette image c&#8217;est que SSH n&#8217;est pas activé par défaut et que donc si vous ne possédez pas un écran et un clavier vous allez avoir du mal à vous connecter&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>Il est possible de modifier directement les fichiers sur la carte SD comme le prouve ce <a href="http://grinninggecko.com/kali-linux-on-headless-beaglebone-black-via-os-x/">tutoriel sous Mac OSX</a> mais j&#8217;ai opté pour l&#8217;utilisation d&#8217;un câble (un adaptateur <a href="http://dave.cheney.net/2013/09/22/two-point-five-ways-to-access-the-serial-console-on-your-beaglebone-black">USB/Serial PL2303</a>) afin de me connecter directement en série. Pour se connecter en série il faut utiliser les pins 1, 4 et 5 le branchement dépendra du <a href="http://elinux.org/Beagleboard:BeagleBone_Black_Accessories#Serial_Debug_Cables">câble que vous utilisez</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bonus_utilisation_de_wifite_pour_du_crack_wpa">Bonus : Utilisation de Wifite pour du crack WPA</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Afin de cracker les réseaux wifi nous avons utilisé un script python pré-installé avec Kali qui permet d&#8217;automatiser tout cela, le problème c&#8217;est qu&#8217;il ne capturait jamais le handshake&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>En fait il s&#8217;avère que le script n&#8217;est plus maintenu et qu&#8217;il reste <a href="https://code.google.com/p/wifite/">un certain nombre de tickets</a> qui n&#8217;ont jamais été résolus. Heureusement quelqu&#8217;un a rencontré le même problème que nous, et en fait cela vient du fait que les logs de tshark ne sont plus écris de la même manière et que tshark est utilisé pour trouver le handshake.</p>
+</div>
+<div class="paragraph">
+<p>La solution c&#8217;est de changer la méthode utilisée pour trouver le handshake dans le fichier de config ou bien d&#8217;appliquer le <a href="https://code.google.com/p/wifite/issues/detail?id=121">patch proposé</a> dans les commentaires.</p>
+</div>
+<div class="paragraph">
+<p>Si vous souhaitez modifier le fichier de config ce sont ces lignes qu&#8217;il faut modifier :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre># Various programs to use when checking for a four-way handshake.
+# True means the program must find a valid handshake in order for wifite to recognize a handshake.
+# Not finding handshake short circuits result (ALL 'True' programs must find handshake)
+WPA_HANDSHAKE_TSHARK   = True  # Checks for sequential 1,2,3 EAPOL msg packets (ignores 4th)
+WPA_HANDSHAKE_PYRIT    = False # Sometimes crashes on incomplete dumps, but accurate.
+WPA_HANDSHAKE_AIRCRACK = True  # Not 100% accurate, but fast.
+WPA_HANDSHAKE_COWPATTY = False # Uses more lenient "nonstrict mode" (-2)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Une fois la modification effectuée vous ne devriez pas avoir de problèmes pour capturer le handshake et pour peu que la clé recherchée soit dans votre dictionnaire c&#8217;est dans la poche :D</p>
+</div>
+</div>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="" style="background-image: url(https://avatars.githubusercontent.com/u/1835765?v=3)"><span class="hidden">'s Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href=""></a></h4>
+
+                    <p>Read <a href="">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    <span class="author-link icon-link"><a href="http://techbrunch.github.io/">http://techbrunch.github.io/</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=Installation%20de%20Kali%20Linux%20sur%20le%20BeagleBone%20Black&amp;url=https://Techbrunch.github.io/hubpress.io/2014/01/26/Installation-de-Kali-Linux-sur-le-BeagleBone-Black.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://Techbrunch.github.io/hubpress.io/2014/01/26/Installation-de-Kali-Linux-sur-le-BeagleBone-Black.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://Techbrunch.github.io/hubpress.io/2014/01/26/Installation-de-Kali-Linux-sur-le-BeagleBone-Black.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="https://Techbrunch.github.io/hubpress.io"></a> &copy; 2015</section>
+        <section class="poweredby">Proudly published with <a href="http://hubpress.io">HubPress</a></section>
+    </footer>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();      
+      </script>
+
+    <script type="text/javascript" src="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/js/jquery.fitvids.js?v=1.0.0"></script>
+    <script type="text/javascript" src="//Techbrunch.github.io/hubpress.io/themes/Casper/assets/js/index.js?v=1.0.0"></script>
+
+</body>
+</html>
